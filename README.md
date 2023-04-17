@@ -1,5 +1,6 @@
-# SOS Mall 백엔드 (Demo)
+# SOS Mall
 
+- 데모 백엔드 프로젝트
 - 쇼핑몰 API
 
 # 프로젝트 목표
