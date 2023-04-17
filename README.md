@@ -26,6 +26,10 @@ https://drive.google.com/file/d/1P16nTvxoMfAeLMNoArkmTeEqnGrxkILx/view?usp=shari
 
 https://drive.google.com/file/d/1OG_mQGNBObsi_on2_3IjunA8zCPq3rkw/view?usp=sharing
 
+# 기술스택
+
+- JAVA
+
 # 상품 기획
 
 ### 생존장비
@@ -49,3 +53,23 @@ https://drive.google.com/file/d/1OG_mQGNBObsi_on2_3IjunA8zCPq3rkw/view?usp=shari
   - 7일/14일/30일/60일/180일 패키지, 열대/한대/고산 기후 패키지
 - 특가상품
 - 생존매뉴얼
+
+# 프로젝트 시작 동기
+
+- 예전에 학원에서 스프링 프레임워크를 사용해 만들었던 이 프로젝트를 다시 보니 다듬고 싶어서 뜯어 보게 됐다. 특히 재난 물품을 판다는 컨셉이 재밌다.
+- 이전에는 spring, mybatis, jpa, html, css, js, jquery, bootstrap를 사용했다. 그런데 조장이었던 내가 ER을 너무 복잡하게 그리는 바람에 완성도 있게 끝내지 못했다.
+- 쇼핑몰은 복잡한 메커니즘이 많아 프론트나 백이나 복잡하기 때문에 좋은 공부가 될 수 있다고 생각했고, 한 번쯤은 데모 프로젝트로 완성도 있게 만들어 보고 싶었다.
+- 뜯어 봤더니 쓸만한 건 요구사항 정의서와 ER 정도라 아예 새로 시작했다. 그런 걸 보면 역시 기초 공사에 해당하는 기능 정의와 RDB가 정말 중요하다는 것을 새삼 깨닫는다.
+
+# 제약사항 설정
+
+- RDB 설계시 최대한 핵심 기능에 초점을 맞추기 위해 몇 가지 비즈니스 요구사항을 단순화 했다.
+
+1. Member 속성 중 14세 미만, 권한, 등급은 고려안함
+2. 삭제 기본 정책은 소프트 딜리트
+3. 성능보다 유연성을 고려해 인조키(Auto Increment), 비식별 관계 지향
+4. text vs. varchar -> 수정성능보다는 조회성능을 고려해 varchar 지향
+5. 등록하는 Admin은 1개의 provider이며 백오피스단 고려하지 않음(사이즈가 너무 커지기 때문에)
+6. 제품 속성은 컬러, 사이즈로 제한
+7. 교환, 교환 기능은 제외함
+8. 1개 주문 당 1개 리뷰 가능
