@@ -9,13 +9,6 @@
 - 기본적인 쇼핑몰 기능 구축
 - 상품 정보 공유 및 SNS 연계 기능 구축
 
-# 프로젝트 시작 동기
-
-- 예전에 학원에서 스프링 프레임워크를 사용해 만들었던 이 프로젝트를 다시 보니 다듬고 싶어서 뜯어 보게 됐다. 특히 재난 물품을 판다는 컨셉이 재밌다.
-- 이전에는 spring, mybatis, oracle mysql, html, css, js, jquery, bootstrap를 사용했다. 그런데 내가 ER을 너무 복잡하게 그리는 바람에 완성도 있게 끝내지 못했다.
-- 쇼핑몰은 복잡한 메커니즘이 많아 프론트나 백이나 복잡하기 때문에 좋은 공부가 될 수 있다고 생각했고, 한 번쯤은 데모 프로젝트로 완성도 있게 만들어 보고 싶었다.
-- 뜯어 봤더니 쓸만한 건 요구사항 정의서와 ER 정도라 아예 새로 시작했다. 그런 걸 보면 역시 기초 공사에 해당하는 기능 정의와 RDB가 정말 중요하다는 것을 새삼 깨닫는다.
-
 # 주요 기능
 
 - 정보제공 : 재난정보, 구호물품, 생존장비 등 유용한 정보 간략히 제공
@@ -33,22 +26,18 @@ https://drive.google.com/file/d/1P16nTvxoMfAeLMNoArkmTeEqnGrxkILx/view?usp=shari
 
 https://drive.google.com/file/d/1OG_mQGNBObsi_on2_3IjunA8zCPq3rkw/view?usp=sharing
 
-# 기술스택 (Back-end)
+# 개발기술 & 도구 (백엔드)
 
 - Java
-  - Zulu OpenJDK (for mac m1)
 - Spring boot
-- MyBatis
-  - ER 설계안과 기능 정의서에 따라서 먼저 RDB부터 상세 설계를 했다. 그래서 객체지향적인 개발로 코드 작성부터 시작하는 ORM을 사용하기에는 억지스러운 부분이 있다고 생각했다. JPA는 러닝 커브가 있기 때문에 개념은 비슷해도 설정 방식이나 사용법이 TypeORM과 미묘하게 다를 거라 생각해 굳이 자세히 파헤치지 않았다. 그러니까 RDB가 적절히 설계됐다고 믿고, 익숙한 SQL맵퍼를 사용하게 되었다.
-- Gradle
-  - 나의 개발 세계관에서 설정 파일은 무조건 YAML이어야 한다.
-- MariaDB
+- Spring JPA(Hibernate), MyBatis
+  - 하다 보니까 어차피 DTO도 설정해줘야 하고 테이블도 만들어야 해서 JPA와 함께 쓰는 게 나은 것 같다. 간단한 CRUD는 JPA를 사용하고, 복잡한 R은 MyBatis를 사용했다.
+- AWS RDS (db.t2.micro), MariaDB
+  - EC2는 설정이 필요해서 관리가 용이한 RDS 사용
+- DBeaver, PostMan
 - OpenAPI (Swagger)
 - OAuth
-- AWS RDS, EC2
-  - 프리티어 기간이 남아 있어 사용
 - Visual Studio Code
-  - 자바 개발할 때 인텔리제이(특히 디버깅, 파일 탐색)가 정말 좋긴 했는데 CE 버전은 뭔가 나사가 하나 빠진 느낌이도 하고(특히 톰캣 돌릴 때), JS/TS 사용하면서 커스텀한 VS코드 단축키에 익숙해져서 돌아갈 수 없는 강을 건넜다 . . . 🥲
 
 # 제약사항 설정
 
