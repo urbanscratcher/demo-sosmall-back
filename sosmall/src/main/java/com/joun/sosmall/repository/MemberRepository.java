@@ -17,4 +17,6 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
   @Query("SELECT distinct m from Member m left join fetch m.addresses a where m.id = :id")
   public Optional<Member> findByIdWithAddresses(@Param("id") int id);
 
+  public Optional<Member> findByEmail(@Param("email") String email);
+
 }

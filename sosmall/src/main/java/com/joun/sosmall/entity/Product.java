@@ -9,10 +9,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import com.joun.sosmall.common.BaseTimeEntity;
 
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 @Entity
+@Getter
+@Where(clause = "del_at is null")
+@SQLDelete(sql = "UPDATE product SET del_at = NOW() WHERE id = ?")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Product extends BaseTimeEntity {
 
   @Id
@@ -36,5 +47,20 @@ public class Product extends BaseTimeEntity {
   @Column
   @ColumnDefault("0")
   private Float discountRate;
+
+  @Builder
+  public Product(int id, ProductCategory productCategory, String name, String description, int price,
+      Float discoutRate) {
+    this.id = id;
+    this.productCategory = productCategory;
+    this.name = name;
+    this.description = description;
+    this.price = price;
+    this.discountRate = discoutRate;
+  }
+
+  // public void setUpdate(ProductCreateDto dto){
+
+  // }
 
 }

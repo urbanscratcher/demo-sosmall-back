@@ -13,14 +13,17 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import com.joun.sosmall.common.BaseTimeEntity;
-import com.joun.sosmall.dtoRequest.AddressRequestDto;
+import com.joun.sosmall.dtoRequest.AddressCreateDto;
 
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@EqualsAndHashCode(callSuper = false)
 @Getter
 @Where(clause = "del_at is null")
 @SQLDelete(sql = "UPDATE address SET del_at = NOW() WHERE id = ?")
@@ -32,7 +35,7 @@ public class Address extends BaseTimeEntity {
   @Column
   private int id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "member_id", nullable = false)
   private Member member;
 
@@ -42,6 +45,7 @@ public class Address extends BaseTimeEntity {
   @Column(length = 100, nullable = false)
   private String address;
 
+  @Setter
   @Column(length = 200)
   private String addressDetail;
 
@@ -58,7 +62,7 @@ public class Address extends BaseTimeEntity {
     this.isMain = isMain;
   }
 
-  public void setUpdate(AddressRequestDto dto) {
+  public void setUpdate(AddressCreateDto dto) {
     if (dto.getAddress() != null) {
       this.address = dto.getAddress();
     }
@@ -74,7 +78,6 @@ public class Address extends BaseTimeEntity {
     if (dto.getZipCode() != null) {
       this.zipCode = dto.getZipCode();
     }
-
   }
 
 }

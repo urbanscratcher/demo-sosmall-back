@@ -18,13 +18,14 @@ import lombok.Setter;
 @Getter
 public abstract class BaseTimeEntity {
   @CreatedDate
-  @Column(updatable = false)
+  @Column(updatable = false, nullable = false)
   private Date regAt;
 
   @LastModifiedDate
+  @Column(nullable = false)
   private Date modAt;
 
-  @Column(nullable = true)
+  @Column
   @Setter
   private Date delAt;
 

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.joun.sosmall.common.exception.DataNotFoundException;
+import com.joun.sosmall.common.exception.NotFoundException;
 import com.joun.sosmall.entity.Bank;
 import com.joun.sosmall.serviceImpl.BankServiceImpl;
 
@@ -17,21 +17,21 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-public class RefController {
+public class BankController {
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
-  private final BankServiceImpl bankService;
+  private final BankServiceImpl service;
 
   @GetMapping("/banks")
   public List<Bank> findBanks() {
-    return bankService.find();
+    return service.find();
   }
 
   @GetMapping("/banks/{code}")
   public Bank findBankByCode(@PathVariable String code) throws Exception {
-    Optional<Bank> bank = bankService.findByCode(code);
+    Optional<Bank> bank = service.findByCode(code);
 
     if (!bank.isPresent()) {
-      throw new DataNotFoundException();
+      throw new NotFoundException();
     }
     return bank.get();
   }

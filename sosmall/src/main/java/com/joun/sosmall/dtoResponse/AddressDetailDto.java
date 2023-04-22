@@ -7,7 +7,7 @@ import com.joun.sosmall.entity.Address;
 import lombok.Getter;
 
 @Getter
-public class AddressResponseDto {
+public class AddressDetailDto {
   private int id;
   private String zipCode;
   private String address;
@@ -16,7 +16,7 @@ public class AddressResponseDto {
   private Date regAt;
   private Date modAt;
 
-  public AddressResponseDto(Address address) {
+  public AddressDetailDto(Address address) {
     this.id = address.getId();
     this.zipCode = address.getZipCode();
     this.address = address.getAddress();

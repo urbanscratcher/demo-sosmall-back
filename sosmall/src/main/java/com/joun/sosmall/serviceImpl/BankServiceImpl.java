@@ -9,23 +9,20 @@ import org.springframework.stereotype.Service;
 
 import com.joun.sosmall.entity.Bank;
 import com.joun.sosmall.repository.BankRepository;
-import com.joun.sosmall.service.BankService;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class BankServiceImpl implements BankService {
+public class BankServiceImpl {
 
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
   private final BankRepository bankRepository;
 
-  @Override
   public List<Bank> find() {
     return bankRepository.findAll();
   }
 
-  @Override
   public Optional<Bank> findByCode(String code) {
     return bankRepository.findByCode(code);
   }

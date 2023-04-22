@@ -4,77 +4,83 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import com.joun.sosmall.common.exception.DataNotFoundException;
-import com.joun.sosmall.dtoRequest.AddressRequestDto;
-import com.joun.sosmall.dtoRequest.MemberRequestDto;
-import com.joun.sosmall.dtoResponse.MemberResponseDto;
+import com.joun.sosmall.common.exception.DuplicatedException;
+import com.joun.sosmall.common.exception.NotFoundException;
+import com.joun.sosmall.common.util.CryptoUtil;
+import com.joun.sosmall.dtoRequest.MemberCreateDto;
+import com.joun.sosmall.dtoResponse.MemberListDto;
 import com.joun.sosmall.entity.Member;
-import com.joun.sosmall.repository.AddressRepository;
 import com.joun.sosmall.repository.MemberRepository;
-import com.joun.sosmall.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class MemberServiceImpl implements MemberService {
+public class MemberServiceImpl {
 
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
-  private final MemberRepository memberRepository;
-  private final AddressRepository addressRepository;
+  private final MemberRepository repo;
 
-  @Transactional
-  @Override
-  public void create(MemberRequestDto dto) {
-    Member member = memberRepository.save(dto.ToEntity());
+  public void create(MemberCreateDto dto) throws Exception {
     if (dto.getAddress() != null) {
-      AddressRequestDto addressDto = dto.getAddress();
-      addressDto.setMember(member);
-      addressRepository.save(addressDto.ToEntity());
+      dto.getAddress().setIsMain(true);
+    }
+
+    String convertedPassword = CryptoUtil.decrypt(CryptoUtil.decrypt(dto.getPassword()));
+    dto.setPassword(convertedPassword);
+
+    try {
+      repo.save(dto.toEntity());
+    } catch (Exception e) {
+      if (e instanceof ConstraintViolationException || e instanceof DataIntegrityViolationException) {
+        throw new DuplicatedException("email should be unique");
+      }
+
     }
   }
 
-  @Override
-  public List<MemberResponseDto> find() {
-    List<Member> members = memberRepository.findAll();
-    return members.stream().map(o -> new MemberResponseDto(o)).collect(Collectors.toList());
-  }
-
-  @Override
-  public Optional<Member> findById(int id) {
-    return memberRepository.findByIdWithAddresses(id);
-  }
-
-  @Override
-  public void update(int id, MemberRequestDto dto) throws Exception {
-    Optional<Member> member = memberRepository.findById(id);
+  public void update(int id, MemberCreateDto dto) throws Exception {
+    Optional<Member> member = repo.findById(id);
 
     if (member.isPresent() == false) {
-      throw new DataNotFoundException();
+      throw new NotFoundException();
     }
 
     member.get().setUpdate(dto);
-    memberRepository.save(member.get());
+    repo.save(member.get());
   }
 
-  @Override
-  @Transactional
+  public List<MemberListDto> find() {
+    List<Member> members = repo.findAll();
+    return members.stream().map((o) -> new MemberListDto(o)).collect(Collectors.toList());
+  }
+
+  public Optional<Member> findById(int id, Boolean isEntityOnly) {
+    if (!isEntityOnly) {
+      return repo.findByIdWithAddresses(id);
+    }
+    return repo.findById(id);
+  }
+
   public void delete(int id) throws Exception {
-    Optional<Member> member = memberRepository.findById(id);
+    Optional<Member> member = repo.findById(id);
 
     if (member.isPresent() == false) {
-      throw new DataNotFoundException();
+      throw new NotFoundException();
     }
 
-    member.get().getAddresses().stream().forEach(o -> addressRepository.deleteById(o.getId()));
-    memberRepository.deleteById(member.get().getId());
+    repo.deleteById(member.get().getId());
+  }
 
+  public Optional<Member> findByEmail(String email) {
+    return repo.findByEmail(email);
   }
 
 }

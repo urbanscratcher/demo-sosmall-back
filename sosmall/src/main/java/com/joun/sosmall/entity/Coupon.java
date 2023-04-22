@@ -1,16 +1,31 @@
 package com.joun.sosmall.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import com.joun.sosmall.common.BaseTimeEntity;
 
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 @Entity
+@Getter
+@Where(clause = "del_at is null")
+@SQLDelete(sql = "UPDATE coupon SET del_at = NOW() WHERE id = ?")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Coupon extends BaseTimeEntity {
 
   @Id
@@ -18,15 +33,23 @@ public class Coupon extends BaseTimeEntity {
   @Column
   private int id;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "member_id", nullable = false)
   private Member member;
 
   @ManyToOne
-  @JoinColumn(name = "coupon_code", nullable = false)
+  @JoinColumn(name = "coupon_type_id", nullable = false)
   private CouponType couponType;
 
   @Column(nullable = false)
-  private int quantity;
+  private Date expiredAt;
+
+  @Builder
+  public Coupon(int id, Member member, CouponType couponType, Date expiredAt) {
+    this.id = id;
+    this.member = member;
+    this.couponType = couponType;
+    this.expiredAt = expiredAt;
+  }
 
 }

@@ -14,7 +14,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import com.joun.sosmall.common.BaseTimeEntity;
-import com.joun.sosmall.dtoRequest.BankAccountRequestDto;
+import com.joun.sosmall.dtoRequest.BankAccountCreateDto;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -56,7 +56,7 @@ public class BankAccount extends BaseTimeEntity {
     this.bank = bank;
   }
 
-  public void setUpdate(BankAccountRequestDto dto) {
+  public void setUpdate(BankAccountCreateDto dto) {
     if (dto.getAccountName() != null) {
       this.accountName = dto.getAccountName();
     }

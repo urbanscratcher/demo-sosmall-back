@@ -1,39 +1,38 @@
 package com.joun.sosmall.dtoRequest;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.joun.sosmall.entity.Address;
 import com.joun.sosmall.entity.Member;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Setter
 @Getter
-@ToString
 @NoArgsConstructor
-public class AddressRequestDto {
-  private Member member;
+public class AddressCreateDto {
   private String zipCode;
   private String address;
   private String addressDetail;
   private Boolean isMain;
 
-  public AddressRequestDto(String zipCode, String address, String addressDetail, Boolean isMain) {
-    this.zipCode = zipCode;
-    this.address = address;
-    this.addressDetail = addressDetail;
-    this.isMain = isMain;
-  }
+  @JsonIgnore
+  private Member member;
 
-  public Address ToEntity() {
-    return Address.builder()
+  public Address toEntity() {
+    Address address = Address.builder()
         .zipCode(this.zipCode)
         .address(this.address)
-        .addressDetail(this.addressDetail)
         .isMain(this.isMain)
         .member(this.member)
         .build();
+
+    if (this.addressDetail != null) {
+      address.setAddressDetail(this.addressDetail);
+    }
+
+    return address;
   }
 
 }

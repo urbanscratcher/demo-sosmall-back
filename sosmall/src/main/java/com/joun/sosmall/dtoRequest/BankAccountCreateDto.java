@@ -1,5 +1,6 @@
 package com.joun.sosmall.dtoRequest;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.joun.sosmall.entity.Bank;
 import com.joun.sosmall.entity.BankAccount;
 import com.joun.sosmall.entity.Member;
@@ -13,7 +14,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @NoArgsConstructor
-public class BankAccountRequestDto {
+public class BankAccountCreateDto {
   private String bankCode;
   private String accountNumber;
   private String accountName;
@@ -21,13 +22,7 @@ public class BankAccountRequestDto {
   private Member member;
   private Bank bank;
 
-  public BankAccountRequestDto(String bankCode, String accountNumber, String accountName) {
-    this.bankCode = bankCode;
-    this.accountNumber = accountNumber;
-    this.accountName = accountName;
-  }
-
-  public BankAccount ToEntity() {
+  public BankAccount toEntity() {
     return BankAccount.builder()
         .accountNumber(this.accountNumber)
         .accountName(this.accountName)
