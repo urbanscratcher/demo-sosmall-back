@@ -48,7 +48,7 @@ public class MemberController {
   @GetMapping("/{id}")
   public MemberDetailDto findById(@PathVariable(name = "id") int id) throws Exception {
     Optional<Member> member = service.findById(id, false);
-    if (member.isPresent() == false) {
+    if (!member.isPresent()) {
       throw new NotFoundException();
     }
     return new MemberDetailDto(member.get());

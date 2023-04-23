@@ -72,7 +72,7 @@ public class MemberServiceImpl {
   public void delete(int id) throws Exception {
     Optional<Member> member = repo.findById(id);
 
-    if (member.isPresent() == false) {
+    if (!member.isPresent()) {
       throw new NotFoundException();
     }
 
