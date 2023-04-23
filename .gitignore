@@ -1,0 +1,25 @@
+sosmall/src/main/resources/application.yml
+
+sosmall/HELP.md
+sosmall/.gradle
+sosmall/build/
+sosmall/bin/
+sosmall/gradle/wrapper/gradle-wrapper.jar
+sosmall/**/src/main/**/build/
+sosmall/**/src/test/**/build/
+
+### STS ###
+./sosmall/.apt_generated
+./sosmall/.classpath
+./sosmall/.factorypath
+./sosmall/.project
+./sosmall/.settings
+./sosmall/.springBeans
+./sosmall/.sts4-cache
+./sosmall/bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+
+### VS Code ###
+.vscode/
