@@ -15,7 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
-import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -59,13 +58,14 @@ public class Product extends BaseTimeEntity {
   private Float discountRate;
 
   @Setter
-  @OneToMany(targetEntity = Stock.class, mappedBy = "product", cascade = { CascadeType.PERSIST })
+  @OneToMany(targetEntity = Stock.class, mappedBy = "product", cascade = { CascadeType.PERSIST,
+      CascadeType.REMOVE })
   private List<Stock> stocks = new ArrayList<Stock>();
 
   @Setter
   @OneToMany(targetEntity = Thumbnail.class, mappedBy = "product", cascade = { CascadeType.PERSIST,
       CascadeType.REMOVE })
-  @OrderBy("listOrder ASC")
+  @OrderBy("id ASC")
   private List<Thumbnail> thumbnails = new ArrayList<Thumbnail>();
 
   @Builder

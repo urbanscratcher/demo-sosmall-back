@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OrderBy;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -22,8 +21,6 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Where(clause = "del_at is null")
-@SQLDelete(sql = "UPDATE thumbnail SET del_at = NOW() WHERE id = ?")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Thumbnail extends BaseTimeEntity {
   @Id
@@ -38,15 +35,11 @@ public class Thumbnail extends BaseTimeEntity {
   @Column(columnDefinition = "text", nullable = false)
   private String url;
 
-  @Column(nullable = false)
-  private int listOrder;
-
   @Builder
-  public Thumbnail(int id, Product product, String url, int listOrder) {
+  public Thumbnail(int id, Product product, String url) {
     this.id = id;
     this.product = product;
     this.url = url;
-    this.listOrder = listOrder;
   }
 
 }

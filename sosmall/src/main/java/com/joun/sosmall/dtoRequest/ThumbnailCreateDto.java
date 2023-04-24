@@ -13,8 +13,6 @@ import lombok.Setter;
 public class ThumbnailCreateDto {
   private int productId;
   private String url;
-  private Boolean isMain;
-  private int listOrder;
 
   private Product product;
 
@@ -22,7 +20,6 @@ public class ThumbnailCreateDto {
     return Thumbnail.builder()
         .product(this.product)
         .url(this.url)
-        .listOrder(this.listOrder)
         .build();
   }
 }

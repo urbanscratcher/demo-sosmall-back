@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class ThumbnailListDto {
+  private int id;
   private String url;
-  private int listOrder;
 
   public ThumbnailListDto(Thumbnail thumbnail) {
+    this.id = thumbnail.getId();
     this.url = thumbnail.getUrl();
-    this.listOrder = thumbnail.getListOrder();
   }
 
 }
