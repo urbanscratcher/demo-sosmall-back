@@ -5,8 +5,10 @@ import java.util.Date;
 import com.joun.sosmall.entity.Address;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class AddressDetailDto {
   private int id;
   private String zipCode;

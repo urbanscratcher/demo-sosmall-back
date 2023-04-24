@@ -6,8 +6,10 @@ import com.joun.sosmall.entity.Bank;
 import com.joun.sosmall.entity.BankAccount;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class BankAccountResponseDto {
   private int id;
   private String accountNumber;

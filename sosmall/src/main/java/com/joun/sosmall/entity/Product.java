@@ -1,23 +1,33 @@
 package com.joun.sosmall.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import com.joun.sosmall.common.BaseTimeEntity;
+import com.joun.sosmall.dtoRequest.ProductCreateDto;
 
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -31,8 +41,8 @@ public class Product extends BaseTimeEntity {
   @Column
   private int id;
 
-  @ManyToOne
-  @JoinColumn(name = "category_id", nullable = false)
+  @ManyToOne(targetEntity = ProductCategory.class, fetch = FetchType.LAZY)
+  @JoinColumn(name = "product_category_id")
   private ProductCategory productCategory;
 
   @Column(length = 100, nullable = false)
@@ -42,11 +52,21 @@ public class Product extends BaseTimeEntity {
   private String description;
 
   @Column(nullable = false)
-  private int price;
+  private Integer price;
 
   @Column
   @ColumnDefault("0")
   private Float discountRate;
+
+  @Setter
+  @OneToMany(targetEntity = Stock.class, mappedBy = "product", cascade = { CascadeType.PERSIST })
+  private List<Stock> stocks = new ArrayList<Stock>();
+
+  @Setter
+  @OneToMany(targetEntity = Thumbnail.class, mappedBy = "product", cascade = { CascadeType.PERSIST,
+      CascadeType.REMOVE })
+  @OrderBy("listOrder ASC")
+  private List<Thumbnail> thumbnails = new ArrayList<Thumbnail>();
 
   @Builder
   public Product(int id, ProductCategory productCategory, String name, String description, int price,
@@ -59,8 +79,12 @@ public class Product extends BaseTimeEntity {
     this.discountRate = discoutRate;
   }
 
-  // public void setUpdate(ProductCreateDto dto){
-
-  // }
+  public void setUpdate(ProductCreateDto dto) {
+    this.name = dto.getName();
+    this.description = dto.getDescription();
+    this.discountRate = dto.getDiscountRate();
+    this.price = dto.getPrice();
+    this.productCategory = dto.getProductCategory();
+  }
 
 }

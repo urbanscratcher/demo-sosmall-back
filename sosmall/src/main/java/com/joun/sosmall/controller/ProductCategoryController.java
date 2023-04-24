@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.joun.sosmall.dtoRequest.ProductCategoryCreateDto;
 import com.joun.sosmall.dtoResponse.ProductCategoryDetailDto;
-import com.joun.sosmall.entity.ProductCategory;
 import com.joun.sosmall.serviceImpl.ProductCategoryServiceImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -37,7 +36,7 @@ public class ProductCategoryController {
   }
 
   @GetMapping("/product-categories")
-  public List<ProductCategory> findById() throws Exception {
+  public List<ProductCategoryDetailDto> findById() throws Exception {
     return this.service.find();
   }
 

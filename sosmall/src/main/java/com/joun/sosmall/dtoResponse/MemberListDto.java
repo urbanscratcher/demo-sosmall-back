@@ -5,8 +5,10 @@ import java.util.Date;
 import com.joun.sosmall.entity.Member;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class MemberListDto {
   private int id;
   private String name;

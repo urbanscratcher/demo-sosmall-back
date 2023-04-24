@@ -11,9 +11,9 @@ import com.joun.sosmall.entity.ProductCategory;
 
 public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Integer> {
 
-  @Query("SELECT distinct p from ProductCategory p left join fetch p.parent pr where p.id = :id")
+  @Query("SELECT distinct p from ProductCategory p left join fetch p.parent pr where p.id = :id order by p.listOrder")
   public Optional<ProductCategory> findById(@Param("id") int id);
 
-  @Query("SELECT node FROM ProductCategory node WHERE node.id NOT IN (SELECT DISTINCT child.id FROM ProductCategory node, IN(node.children) child) and node.parent is null")
+  @Query("SELECT node FROM ProductCategory node WHERE node.id NOT IN (SELECT DISTINCT child.id FROM ProductCategory node, IN(node.children) child) and node.parent is null order by node.listOrder")
   public List<ProductCategory> findAll();
 }
