@@ -19,8 +19,8 @@ import com.joun.sosmall.common.exception.NotFoundException;
 import com.joun.sosmall.dtoRequest.BankAccountCreateDto;
 import com.joun.sosmall.dtoResponse.BankAccountResponseDto;
 import com.joun.sosmall.entity.BankAccount;
-import com.joun.sosmall.entity.Member;
 import com.joun.sosmall.jwt.UserJWTService;
+import com.joun.sosmall.member.Member;
 import com.joun.sosmall.serviceImpl.BankAccountServiceImpl;
 
 import lombok.RequiredArgsConstructor;

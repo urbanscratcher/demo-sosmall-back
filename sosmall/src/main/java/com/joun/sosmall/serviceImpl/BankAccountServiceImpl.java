@@ -7,11 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.joun.sosmall.bank.Bank;
+import com.joun.sosmall.bank.BankServiceImpl;
 import com.joun.sosmall.common.exception.InvalidRequestException;
 import com.joun.sosmall.common.exception.NotFoundException;
 import com.joun.sosmall.dtoRequest.BankAccountCreateDto;
 import com.joun.sosmall.dtoResponse.BankAccountResponseDto;
-import com.joun.sosmall.entity.Bank;
 import com.joun.sosmall.entity.BankAccount;
 import com.joun.sosmall.repository.BankAccountRepository;
 

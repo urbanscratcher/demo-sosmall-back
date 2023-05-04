@@ -12,6 +12,7 @@ import com.joun.sosmall.common.exception.LogicalConflictException;
 import com.joun.sosmall.common.exception.NotFoundException;
 import com.joun.sosmall.dtoRequest.StockCreateDto;
 import com.joun.sosmall.dtoResponse.StockDetailDto;
+import com.joun.sosmall.dtoResponse.StockListDto;
 import com.joun.sosmall.entity.Product;
 import com.joun.sosmall.entity.Stock;
 import com.joun.sosmall.repository.ProductRepository;
@@ -56,9 +57,9 @@ public class StockServiceImpl {
     repo.save(stock);
   }
 
-  public StockDetailDto findById(int id) throws Exception {
+  public StockListDto findById(int id) throws Exception {
     Stock stock = repo.findById(id).orElseThrow(() -> new NotFoundException());
-    return new StockDetailDto(stock);
+    return new StockListDto(stock);
   }
 
   public void delete(int id) throws Exception {

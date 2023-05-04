@@ -11,29 +11,15 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class ProductListDto {
-  private int id;
-  private String name;
-  private Integer price;
-  private Float discountRate;
-  private List<ThumbnailListDto> thumbnails = new ArrayList<>();
+public class ProductListDto extends ProductBasicDto {
   private ProductCategoryListDto productCategory;
   private List<StockDetailDto> stocks = new ArrayList<>();
 
   public ProductListDto(Product product) {
-    this.id = product.getId();
-    this.name = product.getName();
-
-    this.price = product.getPrice();
-    this.discountRate = product.getDiscountRate();
+    super(product);
 
     this.productCategory = new ProductCategoryListDto(product.getProductCategory());
 
     this.stocks = product.getStocks().stream().map((o) -> new StockDetailDto(o)).collect(Collectors.toList());
-
-    if (!product.getThumbnails().isEmpty() && product.getThumbnails().size() != 0) {
-      this.thumbnails.add(new ThumbnailListDto(product.getThumbnails().get(0)));
-    }
-
   }
 }

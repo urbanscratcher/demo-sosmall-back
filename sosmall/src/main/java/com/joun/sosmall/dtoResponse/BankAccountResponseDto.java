@@ -2,7 +2,7 @@ package com.joun.sosmall.dtoResponse;
 
 import java.util.Date;
 
-import com.joun.sosmall.entity.Bank;
+import com.joun.sosmall.bank.Bank;
 import com.joun.sosmall.entity.BankAccount;
 
 import lombok.Getter;

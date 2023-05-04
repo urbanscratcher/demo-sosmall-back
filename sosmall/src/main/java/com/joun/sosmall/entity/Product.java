@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.SQLDelete;
@@ -65,7 +64,6 @@ public class Product extends BaseTimeEntity {
   @Setter
   @OneToMany(targetEntity = Thumbnail.class, mappedBy = "product", cascade = { CascadeType.PERSIST,
       CascadeType.REMOVE })
-  @OrderBy("id ASC")
   private List<Thumbnail> thumbnails = new ArrayList<Thumbnail>();
 
   @Builder

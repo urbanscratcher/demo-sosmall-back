@@ -13,8 +13,10 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
+import com.joun.sosmall.bank.Bank;
 import com.joun.sosmall.common.BaseTimeEntity;
 import com.joun.sosmall.dtoRequest.BankAccountCreateDto;
+import com.joun.sosmall.member.Member;
 
 import lombok.AccessLevel;
 import lombok.Builder;

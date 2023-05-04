@@ -7,22 +7,13 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class StockDetailDto {
+public class StockDetailDto extends StockListDto {
 
-  private int id;
-  private String stockName;
-  private String color;
-  private String size;
-  private int quantity;
-  private int soldQuantity;
+  private ProductBasicDto product;
 
   public StockDetailDto(Stock stock) {
-    this.id = stock.getId();
-    this.stockName = stock.getStockName();
-    this.color = stock.getColor();
-    this.size = stock.getSize();
-    this.quantity = stock.getQuantity();
-    this.soldQuantity = stock.getSoldQuantity();
+    super(stock);
+    this.product = new ProductBasicDto(stock.getProduct());
   }
 
 }

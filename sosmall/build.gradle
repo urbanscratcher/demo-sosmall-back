@@ -38,7 +38,11 @@ runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
 
 	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.7.0'
-	
+
+	// https://mvnrepository.com/artifact/org.mindrot/jbcrypt
+	implementation group: 'org.mindrot', name: 'jbcrypt', version: '0.4'
+
+
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'	
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
@@ -46,6 +50,8 @@ runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
 	annotationProcessor 'org.projectlombok:lombok'	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
+
+
 
 tasks.named('test') {
 	useJUnitPlatform()

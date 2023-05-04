@@ -8,10 +8,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.joun.sosmall.common.exception.InvalidRequestException;
-import com.joun.sosmall.common.exception.NotFoundException;
 import com.joun.sosmall.common.exception.UnauthenticatedException;
 import com.joun.sosmall.jwt.UserJWTService;
-import com.joun.sosmall.serviceImpl.MemberServiceImpl;
+import com.joun.sosmall.member.MemberServiceImpl;
 
 @Component
 public class CheckUserTokenInterceptor implements HandlerInterceptor {
@@ -37,7 +36,8 @@ public class CheckUserTokenInterceptor implements HandlerInterceptor {
     }
 
     int id = userJWTService.getId(request);
-    if (!memberService.findById(id, true).isPresent()) {
+
+    if (!memberService.isExists(id)) {
       throw new InvalidRequestException("User not exist");
     }
 

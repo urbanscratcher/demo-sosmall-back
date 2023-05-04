@@ -1,29 +1,24 @@
 package com.joun.sosmall.entity;
 
-import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.Table;
+
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table(indexes = {
-    @Index(name = "member_id_idx", columnList = "memberId"),
-    @Index(name = "product_id_idx", columnList = "productId")
-})
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Interest {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column
-  private int id;
+  @EmbeddedId
+  private MemberProductId id;
 
-  @Column(nullable = false)
-  private int memberId;
-
-  @Column(nullable = false)
-  private int productId;
+  @Builder
+  public Interest(MemberProductId id) {
+    this.id = id;
+  }
 
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.joun.sosmall.dtoRequest.StockCreateDto;
 import com.joun.sosmall.dtoResponse.StockDetailDto;
+import com.joun.sosmall.dtoResponse.StockListDto;
 import com.joun.sosmall.serviceImpl.StockServiceImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -43,7 +44,7 @@ public class StockController {
   }
 
   @GetMapping("/stocks/{id}")
-  public StockDetailDto findById(@PathVariable int id) throws Exception {
+  public StockListDto findById(@PathVariable int id) throws Exception {
     return service.findById(id);
   }
 

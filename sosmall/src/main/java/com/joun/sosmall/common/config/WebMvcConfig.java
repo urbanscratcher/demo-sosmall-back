@@ -18,7 +18,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
   public void addInterceptors(InterceptorRegistry registry) {
 
     // 토큰확인
-    registry.addInterceptor(userTokenInterceptor).addPathPatterns("/api/members/**",
+    registry.addInterceptor(userTokenInterceptor).addPathPatterns(
+        "/api/members/**",
         "/api/bank-accounts/**",
         "/api/addresses/**",
         "/api/coupons/**",
